@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Indian Market Price Intelligence Suite</title>
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f172a; margin: 40px; color: #f8fafc; }
+        .wrapper { max-width: 1200px; margin: auto; background: #1e293b; padding: 35px; border-radius: 14px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #334155; padding-bottom: 25px; margin-bottom: 25px; }
+        .btn-action { background: #10b981; color: white; border: none; padding: 14px 28px; border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: bold; transition: 0.2s; }
+        .btn-action:hover { background: #059669; transform: translateY(-2px); }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 16px; border-bottom: 1px solid #334155; }
+        th { background: #0f172a; color: #94a3b8; text-transform: uppercase; font-size: 13px; letter-spacing: 0.5px; }
+        .spike { color: #f43f5e; font-weight: bold; }
+        .drop { color: #10b981; font-weight: bold; }
+        .stable { color: #64748b; }
+        .badge { background: #38bdf8; color: #0f172a; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="header">
+        <div>
+            <h1 style="margin: 0; font-size: 28px;">🇮🇳 Advanced Indian Price Intelligence Suite</h1>
+            <p style="color: #94a3b8; margin: 5px 0 0 0;">Real-Time INR (₹) Scraper Pipeline & Machine Learning Predictive System</p>
+        </div>
+        <form action="/trigger-pipeline" method="POST">
+            <button type="submit" class="btn-action">⚡ Run India Data Pipeline & Train AI</button>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Product Description</th>
+                <th>Current Price (INR)</th>
+                <th>Merchant Platform</th>
+                <th>AI Predictive Vector</th>
+                <th>Expected Price Shift</th>
+                <th>Model Error (MAE)</th>
+                <th>MongoDB History</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in products %}
+            <tr>
+                <td><strong>{{ item.name }}</strong></td>
+                <td style="font-size: 16px; color: #38bdf8;">{{ item.price }}</td>
+                <td><span style="color: #cbd5e1;">{{ item.merchant }}</span></td>
+                <td class="{{ 'spike' if 'SPIKE' in item.status else 'drop' if 'DROP' in item.status else 'stable' }}">
+                    {{ item.status }}
+                </td>
+                <td>{{ item.shift }}</td>
+                <td style="color: #a7f3d0; font-family: monospace;">{{ item.accuracy }}</td>
+                <td><span class="badge">{{ item.datapoints }} Logs</span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
